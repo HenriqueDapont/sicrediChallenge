@@ -1,11 +1,12 @@
-package com.sicredi.challenge.service;
+package com.sicredi.challenge.service.agenda;
 
-import com.sicredi.challenge.dto.AgendaDetailsDto;
+import com.sicredi.challenge.dto.agenda.AgendaDetailsDto;
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.repository.AgendaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class AgendaOpeningService {
@@ -17,19 +18,11 @@ public class AgendaOpeningService {
     }
 
     @Transactional
-    public ResponseEntity execute(Long id, Integer minutes) {
+    public ResponseEntity execute(Long id) {
         AgendaModel model = agendaRepository.getReferenceById(id);
-        try {
-            model.openToVoting();
-            return ResponseEntity.ok(new AgendaDetailsDto(model));
-        } catch (Exception e) {
-            throw new RuntimeException();
-        } finally {
-            if(minutes == null) {
-                model.closeToVoting();
-            } else {
-                model.closeToVoting();
-            }
-        }
+
+        model.openToVoting();
+
+        return ResponseEntity.ok().body(new AgendaDetailsDto(model));
     }
 }

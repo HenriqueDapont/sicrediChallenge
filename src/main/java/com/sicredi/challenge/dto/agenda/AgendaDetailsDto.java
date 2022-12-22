@@ -1,4 +1,4 @@
-package com.sicredi.challenge.dto;
+package com.sicredi.challenge.dto.agenda;
 
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.model.StatusAgenda;

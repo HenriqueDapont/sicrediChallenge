@@ -1,8 +1,8 @@
-package com.sicredi.challenge.dto;
+package com.sicredi.challenge.dto.agenda;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record AgendaDto(
+public record SaveAgendaDto(
 
         @NotBlank
         String topic,

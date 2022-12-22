@@ -1,6 +1,7 @@
-package com.sicredi.challenge.service;
+package com.sicredi.challenge.service.agenda;
 
-import com.sicredi.challenge.dto.AgendaDetailsDto;
+import com.sicredi.challenge.dto.agenda.AgendaDetailsDto;
+import com.sicredi.challenge.dto.agenda.AgendaVoteDto;
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.model.StatusAgenda;
 import com.sicredi.challenge.repository.AgendaRepository;
@@ -18,20 +19,18 @@ public class AgendaVotingService {
     }
 
     @Transactional
-    public ResponseEntity execute(Long id, String vote) {
+    public ResponseEntity execute(Long id, AgendaVoteDto vote) {
         AgendaModel model = agendaRepository.getReferenceById(id);
 
         if(model.getStatus() == StatusAgenda.OPEN) {
-            if(vote.equals("Sim")) {
+            if(vote.vote()) {
                 model.setVotesYes(model.getVotesYes() + 1);
-            } else if(vote.equals("Não")) {
-                model.setVotesNo(model.getVotesNo() + 1);
             } else {
-                return ResponseEntity.badRequest().body(new RuntimeException("Apenas respostas 'Sim' e 'Não' são permitidas"));
+                model.setVotesNo(model.getVotesNo() + 1);
             }
             return ResponseEntity.ok(new AgendaDetailsDto(model));
         } else {
-            return ResponseEntity.badRequest().body(new RuntimeException("A pauta não está aberta para votação."));
+            return ResponseEntity.badRequest().body("A pauta não está aberta para votação.");
         }
     }
 }

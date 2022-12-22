@@ -1,22 +1,20 @@
 package com.sicredi.challenge.model;
 
-import com.sicredi.challenge.dto.AgendaDto;
+import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
+@Entity(name = "Pauta")
 @Table(name = "pautas")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class AgendaModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "assunto_da_pauta")
     private String topic;
@@ -30,7 +28,7 @@ public class AgendaModel {
     @Column(name = "votos_nao")
     private Integer votesNo;
 
-    public AgendaModel(AgendaDto dto) {
+    public AgendaModel(SaveAgendaDto dto) {
         this.topic = dto.topic();
         this.description = dto.description();
         this.status = StatusAgenda.CLOSE_AND_NOT_VOTED;

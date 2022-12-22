@@ -1,17 +1,16 @@
 package com.sicredi.challenge.model;
 
+import com.sicredi.challenge.dto.client.SaveClientDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
+@Entity(name = "Cliente")
 @Table(name = "clientes")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class ClientModel {
 
     @Id
@@ -19,4 +18,8 @@ public class ClientModel {
     private Long id;
     @Column(name = "nome")
     private String name;
+
+    public ClientModel(SaveClientDto dto) {
+        this.name = dto.name();
+    }
 }
