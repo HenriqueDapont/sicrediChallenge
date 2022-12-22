@@ -23,6 +23,7 @@ public class AgendaModel {
     @Column(name = "descricao_da_pauta")
     private String description;
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private StatusAgenda status;
     @Column(name = "votos_sim")
     private Integer votesYes;
@@ -35,5 +36,13 @@ public class AgendaModel {
         this.status = StatusAgenda.CLOSE_AND_NOT_VOTED;
         this.votesYes = 0;
         this.votesNo = 0;
+    }
+
+    public void openToVoting() {
+        this.status = StatusAgenda.OPEN;
+    }
+
+    public void closeToVoting() {
+        this.status = StatusAgenda.CLOSE_AND_VOTED;
     }
 }
