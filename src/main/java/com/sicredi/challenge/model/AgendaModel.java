@@ -1,10 +1,11 @@
 package com.sicredi.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
-import com.sicredi.challenge.dto.agenda.UpdateAgendaDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name = "Pauta")
@@ -23,9 +24,12 @@ public class AgendaModel {
     private String topic;
     @Column(name = "descricao_da_pauta")
     private String description;
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private StatusAgenda status;
+    @Column(name = "data_de_abertura")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime openingDate;
+    @Column(name = "data_de_fechamento")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime closingDate;
     @Column(name = "votos_sim")
     private Integer votesYes;
     @Column(name = "votos_nao")
@@ -40,28 +44,14 @@ public class AgendaModel {
     public AgendaModel(SaveAgendaDto dto) {
         this.topic = dto.topic();
         this.description = dto.description();
-        this.status = StatusAgenda.CLOSE_AND_NOT_VOTED;
+        this.openingDate = null;
+        this.closingDate = null;
         this.votesYes = 0;
         this.votesNo = 0;
     }
 
-    public void updateData(UpdateAgendaDto dto) {
-        if(dto.topic() != null) {
-            this.topic = dto.topic();
-        }
-        if(dto.description() != null) {
-            this.description = dto.description();
-        }
-        if(dto.clients() != null) {
-            this.clients.addAll(dto.clients());
-        }
-    }
-
-    public void openToVoting() {
-        this.status = StatusAgenda.OPEN;
-    }
-
-    public void closeToVoting() {
-        this.status = StatusAgenda.CLOSE_AND_VOTED;
+    public void openToVoting(LocalDateTime openingDate, LocalDateTime closingDate) {
+        this.openingDate = openingDate;
+        this.closingDate = closingDate;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 public class AgendaOpeningService {
 
@@ -17,9 +19,13 @@ public class AgendaOpeningService {
     }
 
     @Transactional
-    public ResponseEntity execute(Long id) {
+    public ResponseEntity execute(Long id, Integer minutes) {
         AgendaModel model = agendaRepository.getReferenceById(id);
-        model.openToVoting();
+        if(minutes == null) {
+            model.openToVoting(LocalDateTime.now(), LocalDateTime.now().plusMinutes(1));
+        } else {
+            model.openToVoting(LocalDateTime.now(), LocalDateTime.now().plusMinutes(minutes));
+        }
         return ResponseEntity.ok().body(new AgendaDetailsDto(model));
     }
 }

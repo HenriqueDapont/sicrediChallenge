@@ -2,7 +2,6 @@ package com.sicredi.challenge.controller;
 
 import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
 import com.sicredi.challenge.dto.agenda.AgendaVoteDto;
-import com.sicredi.challenge.service.agenda.AgendaClosingService;
 import com.sicredi.challenge.service.agenda.AgendaOpeningService;
 import com.sicredi.challenge.service.agenda.AgendaVotingService;
 import com.sicredi.challenge.service.agenda.SaveAgendaService;
@@ -18,14 +17,12 @@ public class AgendaController {
     private final SaveAgendaService saveAgendaService;
     private final AgendaOpeningService agendaOpeningService;
     private final AgendaVotingService agendaVotingService;
-    private final AgendaClosingService agendaClosingService;
 
     public AgendaController(SaveAgendaService saveAgendaService, AgendaOpeningService agendaOpeningService,
-                            AgendaVotingService agendaVotingService, AgendaClosingService agendaClosingService) {
+                            AgendaVotingService agendaVotingService) {
         this.saveAgendaService = saveAgendaService;
         this.agendaOpeningService = agendaOpeningService;
         this.agendaVotingService = agendaVotingService;
-        this.agendaClosingService = agendaClosingService;
     }
 
     @PostMapping
@@ -33,21 +30,20 @@ public class AgendaController {
         return saveAgendaService.execute(dto, uriBuilder);
     }
 
-    @PatchMapping("/abrir/{id}")
-    public void openAgendaForVoting(@PathVariable Long id) {
-        agendaOpeningService.execute(id);
+//    @GetMapping("/{id}")
+//    public ResponseEntity getAgenda(@PathVariable Long id) {
+//        return
+//    }
+
+    @PutMapping("/abrir/{id}")
+    public ResponseEntity openAgendaForVoting(@PathVariable Long id,
+                                    @RequestParam(required = false) Integer minutes) {
+        return agendaOpeningService.execute(id, minutes);
     }
 
-    @PatchMapping("/fechar/{id}")
-    public ResponseEntity closeAgendaAfterVoting(@PathVariable Long id) {
-        return agendaClosingService.execute(id);
-    }
-
-    @PutMapping("/{id}")
+    @PutMapping("/votar/{id}")
     public ResponseEntity voteOnTheAgenda(@PathVariable Long id,
                                           @RequestBody @Valid AgendaVoteDto vote) {
         return agendaVotingService.execute(id, vote);
     }
-
-
 }
