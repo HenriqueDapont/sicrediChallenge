@@ -2,6 +2,7 @@ package com.sicredi.challenge.controller;
 
 import com.sicredi.challenge.dto.client.SaveClientDto;
 import com.sicredi.challenge.service.client.SaveClientService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity saveClient(@RequestBody SaveClientDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity saveClient(@RequestBody @Valid SaveClientDto dto, UriComponentsBuilder uriBuilder) {
         return saveClientService.execute(dto, uriBuilder);
     }
 }

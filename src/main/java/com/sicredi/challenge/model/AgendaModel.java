@@ -1,8 +1,11 @@
 package com.sicredi.challenge.model;
 
 import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
+import com.sicredi.challenge.dto.agenda.UpdateAgendaDto;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity(name = "Pauta")
 @Table(name = "pautas")
@@ -28,12 +31,30 @@ public class AgendaModel {
     @Column(name = "votos_nao")
     private Integer votesNo;
 
+    @ManyToMany
+    @JoinTable(name = "pauta_cliente",
+                joinColumns = @JoinColumn(name = "id_pauta"),
+                inverseJoinColumns = @JoinColumn(name = "id_cliente"))
+    private List<ClientModel> clients;
+
     public AgendaModel(SaveAgendaDto dto) {
         this.topic = dto.topic();
         this.description = dto.description();
         this.status = StatusAgenda.CLOSE_AND_NOT_VOTED;
         this.votesYes = 0;
         this.votesNo = 0;
+    }
+
+    public void updateData(UpdateAgendaDto dto) {
+        if(dto.topic() != null) {
+            this.topic = dto.topic();
+        }
+        if(dto.description() != null) {
+            this.description = dto.description();
+        }
+        if(dto.clients() != null) {
+            this.clients.addAll(dto.clients());
+        }
     }
 
     public void openToVoting() {

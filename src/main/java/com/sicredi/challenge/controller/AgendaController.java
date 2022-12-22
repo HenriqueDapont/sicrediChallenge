@@ -34,8 +34,8 @@ public class AgendaController {
     }
 
     @PatchMapping("/abrir/{id}")
-    public ResponseEntity openAgendaForVoting(@PathVariable Long id) {
-        return agendaOpeningService.execute(id);
+    public void openAgendaForVoting(@PathVariable Long id) {
+        agendaOpeningService.execute(id);
     }
 
     @PatchMapping("/fechar/{id}")
