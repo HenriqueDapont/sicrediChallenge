@@ -5,27 +5,19 @@ import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.repository.AgendaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
-public class AgendaOpeningService {
+public class GetOneAgendaService {
 
     private final AgendaRepository agendaRepository;
 
-    public AgendaOpeningService(AgendaRepository agendaRepository) {
+    public GetOneAgendaService(AgendaRepository agendaRepository) {
         this.agendaRepository = agendaRepository;
     }
 
-    @Transactional
-    public ResponseEntity execute(Long id, Integer minutes) {
+    public ResponseEntity execute(Long id) {
         AgendaModel model = agendaRepository.getReferenceById(id);
-        if(minutes == null) {
-            model.openToVoting(LocalDateTime.now(), LocalDateTime.now().plusMinutes(1));
-        } else {
-            model.openToVoting(LocalDateTime.now(), LocalDateTime.now().plusMinutes(minutes));
-        }
+
         return ResponseEntity.ok(new AgendaDetailsDto(model));
     }
 }

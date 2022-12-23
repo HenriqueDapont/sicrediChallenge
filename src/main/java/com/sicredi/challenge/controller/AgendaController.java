@@ -1,11 +1,13 @@
 package com.sicredi.challenge.controller;
 
+import com.sicredi.challenge.dto.agenda.AgendaDetailsDto;
 import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
 import com.sicredi.challenge.dto.agenda.AgendaVoteDto;
-import com.sicredi.challenge.service.agenda.AgendaOpeningService;
-import com.sicredi.challenge.service.agenda.AgendaVotingService;
-import com.sicredi.challenge.service.agenda.SaveAgendaService;
+import com.sicredi.challenge.service.agenda.*;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,12 +19,17 @@ public class AgendaController {
     private final SaveAgendaService saveAgendaService;
     private final AgendaOpeningService agendaOpeningService;
     private final AgendaVotingService agendaVotingService;
+    private final GetOneAgendaService getOneAgendaService;
+    private final GetAllAgendaService getAllAgendaService;
 
     public AgendaController(SaveAgendaService saveAgendaService, AgendaOpeningService agendaOpeningService,
-                            AgendaVotingService agendaVotingService) {
+                            AgendaVotingService agendaVotingService, GetOneAgendaService getOneAgendaService,
+                            GetAllAgendaService getAllAgendaService) {
         this.saveAgendaService = saveAgendaService;
         this.agendaOpeningService = agendaOpeningService;
         this.agendaVotingService = agendaVotingService;
+        this.getOneAgendaService = getOneAgendaService;
+        this.getAllAgendaService = getAllAgendaService;
     }
 
     @PostMapping
@@ -30,10 +37,15 @@ public class AgendaController {
         return saveAgendaService.execute(dto, uriBuilder);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity getAgenda(@PathVariable Long id) {
-//        return
-//    }
+    @GetMapping
+    public ResponseEntity<Page<AgendaDetailsDto>> getAllAgenda(@PageableDefault Pageable pageable) {
+        return getAllAgendaService.execute(pageable);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getAgenda(@PathVariable Long id) {
+        return getOneAgendaService.execute(id);
+    }
 
     @PutMapping("/abrir/{id}")
     public ResponseEntity openAgendaForVoting(@PathVariable Long id,
