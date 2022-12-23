@@ -17,7 +17,6 @@ public class GetOneAgendaService {
 
     public ResponseEntity execute(Long id) {
         AgendaModel model = agendaRepository.getReferenceById(id);
-
         return ResponseEntity.ok(new AgendaDetailsDto(model));
     }
 }

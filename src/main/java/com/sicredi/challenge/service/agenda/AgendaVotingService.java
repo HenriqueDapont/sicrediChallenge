@@ -2,6 +2,7 @@ package com.sicredi.challenge.service.agenda;
 
 import com.sicredi.challenge.dto.agenda.AgendaDetailsDto;
 import com.sicredi.challenge.dto.agenda.AgendaVoteDto;
+import com.sicredi.challenge.infra.exception.ExceptionDto;
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.model.ClientModel;
 import com.sicredi.challenge.repository.AgendaRepository;
@@ -32,15 +33,18 @@ public class AgendaVotingService {
 
         for(ClientModel model : agendaModel.getClients()) {
             if(model.getId().equals(clientModel.getId())) {
-                return ResponseEntity.badRequest().body("Cliente já votou na pauta. Apenas um voto é permitido.");
+                return ResponseEntity.badRequest().body(
+                        new ExceptionDto("clientId", "Cliente já votou na pauta. Apenas um voto é permitido."));
             }
         }
 
         if(agendaModel.getOpeningDate() == null || agendaModel.getOpeningDate().isAfter(LocalDateTime.now())) {
-            return ResponseEntity.badRequest().body("A pauta não está aberta para votação.");
+            return ResponseEntity.badRequest()
+                    .body(new ExceptionDto(null, "A pauta não está aberta para votação."));
         }
         if(agendaModel.getClosingDate().isBefore(LocalDateTime.now())) {
-            return ResponseEntity.badRequest().body("O tempo para votar nessa pauta já se esgotou.");
+            return ResponseEntity.badRequest()
+                    .body(new ExceptionDto(null, "O tempo para votar nessa pauta já se esgotou."));
         }
         if(vote.vote()) {
             agendaModel.setVotesYes(agendaModel.getVotesYes() + 1);

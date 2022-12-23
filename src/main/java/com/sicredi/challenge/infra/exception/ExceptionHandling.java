@@ -1,4 +1,4 @@
-package com.sicredi.challenge.infra;
+package com.sicredi.challenge.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +20,6 @@ public class ExceptionHandling {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity error400Handler(MethodArgumentNotValidException ex) {
         List<FieldError> errors = ex.getFieldErrors();
-        return ResponseEntity.badRequest().body(errors.stream().map(ErrorValidationData::new).toList());
-    }
-
-    private record ErrorValidationData(String field, String message) {
-        public ErrorValidationData(FieldError error) {
-            this(error.getField(), error.getDefaultMessage());
-        }
+        return ResponseEntity.badRequest().body(errors.stream().map(ExceptionDto::new).toList());
     }
 }
