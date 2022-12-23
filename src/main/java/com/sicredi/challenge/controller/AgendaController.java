@@ -59,7 +59,7 @@ public class AgendaController {
 
     @PutMapping("/abrir/{id}")
     public ResponseEntity openAgendaForVoting(@PathVariable Long id,
-                                    @RequestParam(required = false) Integer minutes) {
+                                              @RequestParam(required = false) Integer minutes) {
         return agendaOpeningService.execute(id, minutes);
     }
 
