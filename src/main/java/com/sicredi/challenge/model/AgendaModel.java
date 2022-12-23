@@ -34,7 +34,8 @@ public class AgendaModel {
     private Integer votesYes;
     @Column(name = "votos_nao")
     private Integer votesNo;
-
+    @Column(name = "resultado")
+    private String result;
     @ManyToMany
     @JoinTable(name = "pauta_cliente",
                 joinColumns = @JoinColumn(name = "id_pauta"),
@@ -48,6 +49,7 @@ public class AgendaModel {
         this.closingDate = null;
         this.votesYes = 0;
         this.votesNo = 0;
+        this.result = "Não votado.";
     }
 
     public void openToVoting(LocalDateTime openingDate, LocalDateTime closingDate) {

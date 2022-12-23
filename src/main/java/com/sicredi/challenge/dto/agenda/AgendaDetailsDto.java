@@ -11,11 +11,10 @@ public record AgendaDetailsDto(
         String description,
         LocalDateTime openingDate,
         LocalDateTime closingDate,
-        Integer votesYes,
-        Integer votesNo
+        String result
 ) {
     public AgendaDetailsDto(AgendaModel model) {
         this(model.getId(), model.getTopic(), model.getDescription(), model.getOpeningDate(),
-                model.getClosingDate(), model.getVotesYes(), model.getVotesNo());
+                model.getClosingDate(), model.getResult());
     }
 }

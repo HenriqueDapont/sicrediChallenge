@@ -4,10 +4,9 @@ import com.sicredi.challenge.model.AgendaModel;
 
 public record AgendaResultDto(
 
-        Integer votesYes,
-        Integer votesNo
+        String result
 ) {
     public AgendaResultDto(AgendaModel model) {
-        this(model.getVotesYes(), model.getVotesNo());
+        this(model.getResult());
     }
 }

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class GetVotesService {
+public class GetVotingResultService {
 
     private final AgendaRepository agendaRepository;
 
-    public GetVotesService(AgendaRepository agendaRepository) {
+    public GetVotingResultService(AgendaRepository agendaRepository) {
         this.agendaRepository = agendaRepository;
     }
 
@@ -24,6 +24,14 @@ public class GetVotesService {
         }
         if(model.getClosingDate().isAfter(LocalDateTime.now())) {
             return ResponseEntity.badRequest().body("A pauta ainda está aberta para votação.");
+        }
+
+        if(model.getVotesYes() > model.getVotesNo()) {
+            model.setResult("Aprovado.");
+        } else if(model.getVotesYes() < model.getVotesNo()) {
+            model.setResult("Reprovado.");
+        } else {
+            model.setResult("Empatado.");
         }
         return ResponseEntity.ok(new AgendaResultDto(model));
     }

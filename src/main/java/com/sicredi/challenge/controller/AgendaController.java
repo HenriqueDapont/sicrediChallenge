@@ -22,19 +22,19 @@ public class AgendaController {
     private final GetOneAgendaService getOneAgendaService;
     private final GetAllAgendaService getAllAgendaService;
     private final DeleteAgendaService deleteAgendaService;
-    private final GetVotesService getVotesService;
+    private final GetVotingResultService getVotingResultService;
 
     public AgendaController(SaveAgendaService saveAgendaService, AgendaOpeningService agendaOpeningService,
                             AgendaVotingService agendaVotingService, GetOneAgendaService getOneAgendaService,
                             GetAllAgendaService getAllAgendaService, DeleteAgendaService deleteAgendaService,
-                            GetVotesService getVotesService) {
+                            GetVotingResultService getVotingResultService) {
         this.saveAgendaService = saveAgendaService;
         this.agendaOpeningService = agendaOpeningService;
         this.agendaVotingService = agendaVotingService;
         this.getOneAgendaService = getOneAgendaService;
         this.getAllAgendaService = getAllAgendaService;
         this.deleteAgendaService = deleteAgendaService;
-        this.getVotesService = getVotesService;
+        this.getVotingResultService = getVotingResultService;
     }
 
     @PostMapping
@@ -54,7 +54,7 @@ public class AgendaController {
 
     @GetMapping("/resultado/{id}")
     public ResponseEntity getVotingResult(@PathVariable Long id) {
-        return getVotesService.execute(id);
+        return getVotingResultService.execute(id);
     }
 
     @PutMapping("/abrir/{id}")
