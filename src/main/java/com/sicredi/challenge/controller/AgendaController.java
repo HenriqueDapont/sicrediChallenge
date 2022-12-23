@@ -21,15 +21,17 @@ public class AgendaController {
     private final AgendaVotingService agendaVotingService;
     private final GetOneAgendaService getOneAgendaService;
     private final GetAllAgendaService getAllAgendaService;
+    private final DeleteAgendaService deleteAgendaService;
 
     public AgendaController(SaveAgendaService saveAgendaService, AgendaOpeningService agendaOpeningService,
                             AgendaVotingService agendaVotingService, GetOneAgendaService getOneAgendaService,
-                            GetAllAgendaService getAllAgendaService) {
+                            GetAllAgendaService getAllAgendaService, DeleteAgendaService deleteAgendaService) {
         this.saveAgendaService = saveAgendaService;
         this.agendaOpeningService = agendaOpeningService;
         this.agendaVotingService = agendaVotingService;
         this.getOneAgendaService = getOneAgendaService;
         this.getAllAgendaService = getAllAgendaService;
+        this.deleteAgendaService = deleteAgendaService;
     }
 
     @PostMapping
@@ -57,5 +59,10 @@ public class AgendaController {
     public ResponseEntity voteOnTheAgenda(@PathVariable Long id,
                                           @RequestBody @Valid AgendaVoteDto vote) {
         return agendaVotingService.execute(id, vote);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteAgenda(@PathVariable Long id) {
+        return deleteAgendaService.execute(id);
     }
 }
