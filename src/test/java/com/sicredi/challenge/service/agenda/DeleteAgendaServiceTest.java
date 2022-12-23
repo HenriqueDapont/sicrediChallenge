@@ -30,6 +30,7 @@ class DeleteAgendaServiceTest {
     void shouldDeleteAnAgenda() {
         AgendaModel model = new AgendaModel();
         Mockito.when(agendaRepository.getReferenceById(0L)).thenReturn(model);
+        Mockito.doNothing().when(agendaRepository).delete(model);
 
         ResponseEntity result = deleteAgendaService.execute(0L);
         assertEquals(result.getStatusCode(), HttpStatus.NO_CONTENT);

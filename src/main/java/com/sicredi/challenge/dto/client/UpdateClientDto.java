@@ -1,11 +1,10 @@
 package com.sicredi.challenge.dto.client;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public record UpdateClientDto(
 
-        @NotNull
-        Long id,
+        @NotBlank
         String name
 ) {
 }
