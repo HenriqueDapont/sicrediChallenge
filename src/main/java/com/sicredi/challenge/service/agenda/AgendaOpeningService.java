@@ -26,6 +26,7 @@ public class AgendaOpeningService {
         } else {
             model.openToVoting(LocalDateTime.now(), LocalDateTime.now().plusMinutes(minutes));
         }
+        model.setResult("Em votação.");
         return ResponseEntity.ok(new AgendaDetailsDto(model));
     }
 }
