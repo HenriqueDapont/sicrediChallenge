@@ -6,7 +6,6 @@ import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.repository.AgendaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
 
@@ -37,6 +36,7 @@ public class GetVotingResultService {
         } else {
             model.setResult("Empatado.");
         }
+        agendaRepository.save(model);
         return ResponseEntity.ok(new AgendaResultDto(model));
     }
 }
