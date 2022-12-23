@@ -27,7 +27,7 @@ public class AgendaVotingService {
     @Transactional
     public ResponseEntity execute(Long id, AgendaVoteDto vote) {
         AgendaModel agendaModel = agendaRepository.getReferenceById(id);
-        ClientModel clientModel = clientRepository.getReferenceById(vote.client().id());
+        ClientModel clientModel = clientRepository.getReferenceById(vote.clientId());
         List<ClientModel> list = agendaModel.getClients();
 
         for(ClientModel model : agendaModel.getClients()) {
