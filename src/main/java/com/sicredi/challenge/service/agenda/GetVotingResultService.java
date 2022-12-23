@@ -22,7 +22,7 @@ public class GetVotingResultService {
         AgendaModel model = agendaRepository.getReferenceById(id);
         if(model.getOpeningDate() == null || model.getClosingDate() == null) {
             return ResponseEntity.badRequest()
-                    .body(new ExceptionDto("openingDate", "A pauta não está aberta para votação."));
+                    .body(new ExceptionDto("openingDate", "A pauta não foi aberta para votação."));
         }
         if(model.getClosingDate().isAfter(LocalDateTime.now())) {
             return ResponseEntity.badRequest()
