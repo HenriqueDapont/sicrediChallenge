@@ -4,6 +4,7 @@ import com.sicredi.challenge.dto.agenda.AgendaResultDto;
 import com.sicredi.challenge.infra.exception.ExceptionDto;
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.repository.AgendaRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.time.LocalDateTime;
 public class GetVotingResultService {
 
     private final AgendaRepository agendaRepository;
+    private final RabbitTemplate rabbitTemplate;
 
-    public GetVotingResultService(AgendaRepository agendaRepository) {
+    public GetVotingResultService(AgendaRepository agendaRepository, RabbitTemplate rabbitTemplate) {
         this.agendaRepository = agendaRepository;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     public ResponseEntity execute(Long id) {
@@ -37,6 +40,7 @@ public class GetVotingResultService {
             model.setResult("Empatado.");
         }
         agendaRepository.save(model);
+        rabbitTemplate.convertAndSend("votacao.concluida", new AgendaResultDto(model));
         return ResponseEntity.ok(new AgendaResultDto(model));
     }
 }
