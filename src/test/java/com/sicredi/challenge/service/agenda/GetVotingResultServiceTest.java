@@ -2,7 +2,6 @@ package com.sicredi.challenge.service.agenda;
 
 import com.sicredi.challenge.infra.exception.ExceptionDto;
 import com.sicredi.challenge.model.AgendaModel;
-import com.sicredi.challenge.model.ClientModel;
 import com.sicredi.challenge.repository.AgendaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,12 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,11 +23,13 @@ class GetVotingResultServiceTest {
     private GetVotingResultService getVotingResultService;
     @Mock
     private AgendaRepository agendaRepository;
+    @Mock
+    private RabbitTemplate rabbitTemplate;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        this.getVotingResultService = new GetVotingResultService(agendaRepository);
+        this.getVotingResultService = new GetVotingResultService(agendaRepository, rabbitTemplate);
     }
 
     @Test

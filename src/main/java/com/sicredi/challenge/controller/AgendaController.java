@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/pauta")
@@ -69,7 +70,7 @@ public class AgendaController {
             @ApiResponse(responseCode = "404", description = "Pauta não encontrada.")
     })
     @GetMapping("/{id}")
-    public ResponseEntity getAgenda(@PathVariable Long id) {
+    public ResponseEntity getAgenda(@PathVariable @NotNull Long id) {
         return getOneAgendaService.execute(id);
     }
 
@@ -84,7 +85,7 @@ public class AgendaController {
             @ApiResponse(responseCode = "404", description = "Pauta não encontrada.")
     })
     @GetMapping("/resultado/{id}")
-    public ResponseEntity getVotingResult(@PathVariable Long id) {
+    public ResponseEntity getVotingResult(@PathVariable @NotNull Long id) {
         return getVotingResultService.execute(id);
     }
 
@@ -97,7 +98,7 @@ public class AgendaController {
             @ApiResponse(responseCode = "404", description = "Pauta não encontrada.")
     })
     @PutMapping("/abrir/{id}")
-    public ResponseEntity openAgendaForVoting(@PathVariable Long id,
+    public ResponseEntity openAgendaForVoting(@PathVariable @NotNull Long id,
                                               @RequestParam(required = false) Integer minutes) {
         return agendaOpeningService.execute(id, minutes);
     }
@@ -114,7 +115,7 @@ public class AgendaController {
             @ApiResponse(responseCode = "404", description = "Pauta/Cliente não encontrado(s).")
     })
     @PutMapping("/votar/{id}")
-    public ResponseEntity voteOnTheAgenda(@PathVariable Long id,
+    public ResponseEntity voteOnTheAgenda(@PathVariable @NotNull Long id,
                                           @RequestBody @Valid AgendaVoteDto vote) {
         return agendaVotingService.execute(id, vote);
     }
@@ -123,7 +124,7 @@ public class AgendaController {
     @Operation(summary = "Exclui uma pauta.")
     @ApiResponse(responseCode = "204", description = "Exclusão realizada com sucesso.")
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteAgenda(@PathVariable Long id) {
+    public ResponseEntity deleteAgenda(@PathVariable @NotNull Long id) {
         return deleteAgendaService.execute(id);
     }
 }
