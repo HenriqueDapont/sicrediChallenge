@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/cliente")
@@ -66,7 +67,7 @@ public class ClientController {
             @ApiResponse(responseCode = "404", description = "Cliente não encontrado.")
     })
     @GetMapping("/{id}")
-    public ResponseEntity getClient(@PathVariable Long id) {
+    public ResponseEntity getClient(@PathVariable @NotNull Long id) {
         return getOneClientService.execute(id);
     }
 
@@ -79,7 +80,7 @@ public class ClientController {
             @ApiResponse(responseCode = "404", description = "Cliente não encontrado.")
     })
     @PutMapping("/{id}")
-    public ResponseEntity updateClient(@PathVariable Long id,
+    public ResponseEntity updateClient(@PathVariable @NotNull Long id,
                                        @RequestBody UpdateClientDto dto) {
         return updateClientService.execute(id, dto);
     }
@@ -88,7 +89,7 @@ public class ClientController {
     @Operation(summary = "Exclui um cliente.")
     @ApiResponse(responseCode = "204", description = "Exclusão realizada com sucesso.")
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteClient(@PathVariable Long id) {
+    public ResponseEntity deleteClient(@PathVariable @NotNull Long id) {
         return deleteClientService.execute(id);
     }
 }

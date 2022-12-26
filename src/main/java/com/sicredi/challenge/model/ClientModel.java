@@ -21,11 +21,14 @@ public class ClientModel {
     private Long id;
     @Column(name = "nome")
     private String name;
+    @Column(name = "cpf")
+    private String cpf;
     @ManyToMany(mappedBy = "clients")
     private List<AgendaModel> agendas;
 
     public ClientModel(SaveClientDto dto) {
         this.name = dto.name();
+        this.cpf = dto.cpf();
     }
 
     public void updateData(UpdateClientDto dto) {

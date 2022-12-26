@@ -8,9 +8,11 @@ public record ClientDetailsDto(
         @Schema(example = "1")
         Long id,
         @Schema(example = "Joana")
-        String name
+        String name,
+        @Schema(example = "51989837050")
+        String cpf
 ) {
     public ClientDetailsDto(ClientModel model) {
-        this(model.getId(), model.getName());
+        this(model.getId(), model.getName(), model.getCpf());
     }
 }
