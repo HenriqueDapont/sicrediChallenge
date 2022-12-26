@@ -2,9 +2,9 @@ package com.sicredi.challenge.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 

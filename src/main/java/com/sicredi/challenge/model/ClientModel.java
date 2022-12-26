@@ -2,9 +2,9 @@ package com.sicredi.challenge.model;
 
 import com.sicredi.challenge.dto.client.SaveClientDto;
 import com.sicredi.challenge.dto.client.UpdateClientDto;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "Cliente")

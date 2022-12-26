@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,9 +20,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/pauta")
 @Tag(name = "Controller Pauta")
+@RequiredArgsConstructor
 public class AgendaController {
 
     private final SaveAgendaService saveAgendaService;
@@ -32,19 +35,6 @@ public class AgendaController {
     private final GetAllAgendaService getAllAgendaService;
     private final DeleteAgendaService deleteAgendaService;
     private final GetVotingResultService getVotingResultService;
-
-    public AgendaController(SaveAgendaService saveAgendaService, AgendaOpeningService agendaOpeningService,
-                            AgendaVotingService agendaVotingService, GetOneAgendaService getOneAgendaService,
-                            GetAllAgendaService getAllAgendaService, DeleteAgendaService deleteAgendaService,
-                            GetVotingResultService getVotingResultService) {
-        this.saveAgendaService = saveAgendaService;
-        this.agendaOpeningService = agendaOpeningService;
-        this.agendaVotingService = agendaVotingService;
-        this.getOneAgendaService = getOneAgendaService;
-        this.getAllAgendaService = getAllAgendaService;
-        this.deleteAgendaService = deleteAgendaService;
-        this.getVotingResultService = getVotingResultService;
-    }
 
     @Operation(summary = "Cadastra uma nova pauta.")
     @ApiResponses(value = {

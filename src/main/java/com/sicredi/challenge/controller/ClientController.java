@@ -1,6 +1,5 @@
 package com.sicredi.challenge.controller;
 
-import com.sicredi.challenge.dto.agenda.AgendaDetailsDto;
 import com.sicredi.challenge.dto.client.ClientDetailsDto;
 import com.sicredi.challenge.dto.client.SaveClientDto;
 import com.sicredi.challenge.dto.client.UpdateClientDto;
@@ -12,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,9 +19,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/cliente")
 @Tag(name = "Controller Cliente")
+@RequiredArgsConstructor
 public class ClientController {
 
     private final SaveClientService saveClientService;
@@ -30,16 +32,6 @@ public class ClientController {
     private final GetOneClientService getOneClientService;
     private final UpdateClientService updateClientService;
     private final DeleteClientService deleteClientService;
-
-    public ClientController(SaveClientService saveClientService, GetAllClientService getAllClientService,
-                            GetOneClientService getOneClientService, UpdateClientService updateClientService,
-                            DeleteClientService deleteClientService) {
-        this.saveClientService = saveClientService;
-        this.getAllClientService = getAllClientService;
-        this.getOneClientService = getOneClientService;
-        this.updateClientService = updateClientService;
-        this.deleteClientService = deleteClientService;
-    }
 
     @Operation(summary = "Cadastra um novo cliente.")
     @ApiResponses(value = {

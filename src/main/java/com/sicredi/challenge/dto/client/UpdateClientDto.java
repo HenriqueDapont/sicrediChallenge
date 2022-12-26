@@ -1,6 +1,6 @@
 package com.sicredi.challenge.dto.client;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public record UpdateClientDto(
 

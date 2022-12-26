@@ -1,6 +1,6 @@
 package com.sicredi.challenge.dto.agenda;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 public record AgendaVoteDto(
 
