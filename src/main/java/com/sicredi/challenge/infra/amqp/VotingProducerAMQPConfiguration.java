@@ -15,11 +15,6 @@ import org.springframework.context.annotation.Configuration;
 public class VotingProducerAMQPConfiguration {
 
     @Bean
-    public Queue createQueue() {
-        return QueueBuilder.nonDurable("votacao.concluida").build();
-    }
-
-    @Bean
     public RabbitAdmin createRabbitAdmin(ConnectionFactory connection) {
         return new RabbitAdmin(connection);
     }

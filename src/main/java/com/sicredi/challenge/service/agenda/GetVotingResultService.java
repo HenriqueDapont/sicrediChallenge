@@ -40,7 +40,7 @@ public class GetVotingResultService {
             model.setResult("Empatado.");
         }
         agendaRepository.save(model);
-        rabbitTemplate.convertAndSend("votacao.concluida", new AgendaResultDto(model));
+        rabbitTemplate.convertAndSend("votacao.ex", "", new AgendaResultDto(model));
         return ResponseEntity.ok(new AgendaResultDto(model));
     }
 }
