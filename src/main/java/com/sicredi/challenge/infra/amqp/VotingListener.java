@@ -1,9 +1,7 @@
 package com.sicredi.challenge.infra.amqp;
 
 import com.sicredi.challenge.dto.agenda.AgendaResultDto;
-import com.sicredi.challenge.infra.exception.ExceptionDto;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
