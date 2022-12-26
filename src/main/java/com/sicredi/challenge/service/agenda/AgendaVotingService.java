@@ -28,6 +28,10 @@ public class AgendaVotingService {
     @Transactional
     public ResponseEntity execute(Long id, AgendaVoteDto vote) {
         AgendaModel agendaModel = agendaRepository.getReferenceById(id);
+        if(!clientRepository.existsById(vote.clientId())) {
+            return ResponseEntity.badRequest().body(
+                    new ExceptionDto("clientId", "Cliente não cadastrado."));
+        }
         ClientModel clientModel = clientRepository.getReferenceById(vote.clientId());
         List<ClientModel> list = agendaModel.getClients();
 
