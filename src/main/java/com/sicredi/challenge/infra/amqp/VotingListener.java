@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class VotingListener {
 
-    @RabbitListener(queues = "votacao.detalhe")
+    @RabbitListener(queues = "votacao.resultado")
     public void receiveMessage(@Payload AgendaResultDto dto) {
 
         String message = """
