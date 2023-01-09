@@ -4,6 +4,7 @@ import com.sicredi.challenge.dto.agenda.AgendaDetailsDto;
 import com.sicredi.challenge.dto.agenda.SaveAgendaDto;
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.repository.AgendaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +13,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @Service
+@RequiredArgsConstructor
 public class SaveAgendaService {
 
     private final AgendaRepository agendaRepository;
-
-    public SaveAgendaService(AgendaRepository agendaRepository) {
-        this.agendaRepository = agendaRepository;
-    }
 
     @Transactional
     public ResponseEntity execute(SaveAgendaDto dto, UriComponentsBuilder uriBuilder) {

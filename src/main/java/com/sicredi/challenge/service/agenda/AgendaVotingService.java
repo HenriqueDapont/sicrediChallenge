@@ -7,6 +7,7 @@ import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.model.ClientModel;
 import com.sicredi.challenge.repository.AgendaRepository;
 import com.sicredi.challenge.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,15 +16,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AgendaVotingService {
 
     private final AgendaRepository agendaRepository;
     private final ClientRepository clientRepository;
-
-    public AgendaVotingService(AgendaRepository agendaRepository, ClientRepository clientRepository) {
-        this.agendaRepository = agendaRepository;
-        this.clientRepository = clientRepository;
-    }
 
     @Transactional
     public ResponseEntity execute(Long id, AgendaVoteDto vote) {

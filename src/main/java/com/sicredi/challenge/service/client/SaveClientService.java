@@ -4,6 +4,7 @@ import com.sicredi.challenge.dto.client.ClientDetailsDto;
 import com.sicredi.challenge.dto.client.SaveClientDto;
 import com.sicredi.challenge.model.ClientModel;
 import com.sicredi.challenge.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +13,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @Service
+@RequiredArgsConstructor
 public class SaveClientService {
 
     private final ClientRepository clientRepository;
-
-    public SaveClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
 
     @Transactional
     public ResponseEntity execute(SaveClientDto dto, UriComponentsBuilder uriBuilder) {

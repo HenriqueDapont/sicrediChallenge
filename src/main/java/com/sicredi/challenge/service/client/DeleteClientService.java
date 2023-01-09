@@ -3,18 +3,16 @@ package com.sicredi.challenge.service.client;
 import com.sicredi.challenge.infra.exception.ExceptionDto;
 import com.sicredi.challenge.model.ClientModel;
 import com.sicredi.challenge.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class DeleteClientService {
 
     private final ClientRepository clientRepository;
-
-    public DeleteClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
 
     @Transactional
     public ResponseEntity execute(Long id) {

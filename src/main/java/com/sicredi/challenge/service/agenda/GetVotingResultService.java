@@ -4,22 +4,20 @@ import com.sicredi.challenge.dto.agenda.AgendaResultDto;
 import com.sicredi.challenge.infra.exception.ExceptionDto;
 import com.sicredi.challenge.model.AgendaModel;
 import com.sicredi.challenge.repository.AgendaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class GetVotingResultService {
 
     private final AgendaRepository agendaRepository;
     private final RabbitTemplate rabbitTemplate;
-
-    public GetVotingResultService(AgendaRepository agendaRepository, RabbitTemplate rabbitTemplate) {
-        this.agendaRepository = agendaRepository;
-        this.rabbitTemplate = rabbitTemplate;
-    }
 
     public ResponseEntity execute(Long id) {
         AgendaModel model = agendaRepository.getReferenceById(id);
